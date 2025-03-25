@@ -1,0 +1,13 @@
+services:
+  bookingservice:
+    image: ${DOCKER_REGISTRY-}bookingservice
+    build:
+      context: .
+      dockerfile: BookingService/Dockerfile
+
+  paymentservice:
+    image: ${DOCKER_REGISTRY-}paymentservice
+    build:
+      context: .
+      dockerfile: PaymentService/Dockerfile
+
