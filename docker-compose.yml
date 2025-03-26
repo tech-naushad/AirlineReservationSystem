@@ -11,3 +11,10 @@ services:
       context: .
       dockerfile: PaymentService/Dockerfile
 
+
+  ticketingservice:
+    image: ${DOCKER_REGISTRY-}ticketingservice
+    build:
+      context: .
+      dockerfile: TicketingService/Dockerfile
+

@@ -25,8 +25,7 @@ namespace BookingService.Persistence
     {
         protected override void Configure(EntityTypeBuilder<BookingState> entity, ModelBuilder model)
         {
-            entity.Property(x => x.CurrentState).HasMaxLength(30);
-            entity.Property(x => x.BookingNumber).HasMaxLength(30);             
+            entity.Property(x => x.CurrentState).HasMaxLength(30);                      
         }
     }
 }

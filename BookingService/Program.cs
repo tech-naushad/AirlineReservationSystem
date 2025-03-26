@@ -1,3 +1,4 @@
+using BookingService.Consumers;
 using BookingService.Orchestrator;
 using BookingService.Persistence;
 using MassTransit;
@@ -9,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<BookingRepository, BookingRepository>();
+builder.Services.AddScoped<IBookingRepository, BookingRepository>();
 builder.Services.AddScoped<DBIntializer>();
 builder.Services.AddScoped<SagaDBIntializer>();
 builder.Services.AddSwaggerGen();
@@ -33,6 +34,8 @@ builder.Services.AddMassTransit(x =>
              options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
          });
      });
+
+    x.AddConsumer<BookingFailedConsumer>();
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.Host(new Uri("rabbitmq://host.docker.internal"), hst =>

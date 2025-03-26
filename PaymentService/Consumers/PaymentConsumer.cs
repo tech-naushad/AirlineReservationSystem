@@ -36,7 +36,7 @@ namespace PaymentService.Consumers
             }
             else
             {
-                await _publishEndpoint.Publish(new PaymentFailed
+                await _publishEndpoint.Publish<IPaymentFailed>(new
                 {
                     BookingId = context.Message.BookingId,
                     BookingNumber = context.Message.BookingNumber,

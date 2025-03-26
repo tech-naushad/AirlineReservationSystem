@@ -11,7 +11,8 @@ namespace BookingService.Persistence
         }
 
         public DbSet<Booking> Bookings { get; set; }
-
+        public DbSet<BookingTransaction> BookingTransactions { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -26,6 +27,9 @@ namespace BookingService.Persistence
             modelBuilder.Entity<Booking>()
                 .Property(b => b.Status)
                 .HasMaxLength(50);
+
+            modelBuilder.Entity<BookingTransaction>()
+             .HasKey(b => b.TransactionId);
         }
     }
 }

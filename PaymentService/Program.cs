@@ -18,7 +18,7 @@ builder.Services.AddDbContext<PaymentDbContext>(options =>
 builder.Services.AddMassTransit(x =>
 {
     x.AddConsumer<PaymentConsumer>();
-    x.AddConsumer<PaymentFailConsumer>();
+    x.AddConsumer<PaymentFailedConsumer>();
 
     x.UsingRabbitMq((context, cfg) =>
     {

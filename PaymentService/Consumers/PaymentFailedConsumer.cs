@@ -4,13 +4,13 @@ using MessageContracts;
 
 namespace PaymentService.Consumers
 {
-    public class PaymentFailConsumer : IConsumer<PaymentFailContract>
+    public class PaymentFailedConsumer : IConsumer<PaymentFailedContract>
     {
-        private readonly ILogger<PaymentConsumer> _logger;
+        private readonly ILogger<PaymentFailedConsumer> _logger;
         private readonly IPublishEndpoint _publishEndpoint;
         //private readonly PaymentDbContext _context;
 
-        public PaymentFailConsumer(ILogger<PaymentConsumer> logger,
+        public PaymentFailedConsumer(ILogger<PaymentFailedConsumer> logger,
             IPublishEndpoint publishEndpoint)
         {
             _logger = logger;
@@ -19,7 +19,7 @@ namespace PaymentService.Consumers
 
         }
 
-        public async Task Consume(ConsumeContext<PaymentFailContract> context)
+        public async Task Consume(ConsumeContext<PaymentFailedContract> context)
         {
             _logger.LogInformation($"Processing payment for bookingId: {context.Message.BookingId}", context.Message.BookingNumber);
 

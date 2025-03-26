@@ -32,7 +32,7 @@ namespace PaymentService.Persistence
             {
                 await transaction.RollbackAsync();
 
-                await _publishEndpoint.Publish(new PaymentFailed
+                await _publishEndpoint.Publish<IPaymentFailed>(new
                 {
                     BookingId = payment.BookingId,
                     BookingNumber = payment.BookingNumber,

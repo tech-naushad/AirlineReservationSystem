@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MessageContracts
 {
-    public record PaymentFailContract
+    public record PaymentFailedContract
     {
         public Guid BookingId { get; init; }
         public string BookingNumber { get; init; }
