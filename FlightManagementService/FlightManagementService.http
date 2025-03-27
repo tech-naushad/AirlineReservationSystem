@@ -1,6 +1,0 @@
-@FlightManagementService_HostAddress = http://localhost:5104
-
-GET {{FlightManagementService_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

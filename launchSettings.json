@@ -5,11 +5,10 @@
       "commandVersion": "1.0",
       "composeLaunchAction": "LaunchBrowser",
       "composeLaunchServiceName": "bookingservice",
-      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
+      "composeLaunchUrl": "https://localhost:8081/swagger",
       "serviceActions": {
         "bookingservice": "StartDebugging",
-        "paymentservice": "StartDebugging",
-        "ticketingservice": "StartDebugging"
+        "paymentservice": "StartDebugging"
       }
     }
   }
