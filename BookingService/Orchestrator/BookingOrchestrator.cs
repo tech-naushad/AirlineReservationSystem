@@ -26,10 +26,9 @@ namespace BookingService.Orchestrator
 
         //public Event<IBookingCreating> OnBookingCreating { get; set; }
         public Event<IBookingCreated> OnBookingCreated { get; set; }
-        public Event<IBookingFailed> OnBookingFailed { get; set; }
-       
-        // public Event<IPaymentCompleted> OnPaymentCompleted { get; set; }
-      //  public Event<IPaymentFailed> OnPaymentFailed { get; set; }
+        public Event<IBookingFailed> OnBookingFailed { get; set; }       
+        public Event<IPaymentCompleted> OnPaymentCompleted { get; set; }
+        public Event<IPaymentFailed> OnPaymentFailed { get; set; }
        // public Event<ITicketProcessed> OnTicketProcessed { get; set; }
 
         public BookingOrchestrator()
@@ -39,23 +38,27 @@ namespace BookingService.Orchestrator
             //Event(() => obboo, x => x.CorrelateById(m => m.Message.BookingId));
             Event(() => OnBookingCreated, x => x.CorrelateById(m => m.Message.BookingId));
             Event(() => OnBookingFailed, x => x.CorrelateById(m => m.Message.TransactionId));
-            // Event(() => OnPaymentCompleted, x => x.CorrelateById(m => m.Message.BookingId));
-            //  Event(() => OnPaymentFailed, x => x.CorrelateById(m => m.Message.BookingId));
+            Event(() => OnPaymentCompleted, x => x.CorrelateById(m => m.Message.BookingId));
+            Event(() => OnPaymentFailed, x => x.CorrelateById(m => m.Message.BookingId));
             //Event(() => OnTicketProcessed, x => x.CorrelateById(m => m.Message.BookingId));          
 
             Initially
             (
                 When(OnBookingCreated).Then(context =>
                 {
-                    context.Saga.BookingId = Guid.NewGuid();
-                    context.Saga.DateCreated = DateTime.UtcNow;
+                    context.Saga.BookingId = context.Message.BookingId; 
+                   
+                   // context.Saga.DateCreated = DateTime.UtcNow;
                 })
-                .PublishAsync(context => context.Init<PaymentContract>(context))
+                .PublishAsync(context => context.Init<PaymentContract>(new
+                {
+                    BookingId = context.Message.BookingId,
+                    Amount = context.Message.Amount,
+                }))
                 .TransitionTo(ProcessingPayment),
 
                 When(OnBookingFailed).Then(context =>
-                {
-                     
+                {                     
                     context.Saga.DateCreated = DateTime.UtcNow;
                 })
                 .PublishAsync(context => context.Init<BookingFailedContract>(new
@@ -69,20 +72,33 @@ namespace BookingService.Orchestrator
                  .Finalize()
             );
 
-            //During(ProcessingPayment,
-            //    When(OnPaymentCompleted).Then(context =>
-            //    {
-            //        context.Saga.BookingId = context.Message.BookingId;
-            //        //context.Saga.BookingNumber = context.Message.BookingNumber;
-            //        //context.Saga.Amount = context.Message.Amount;
-            //    })
-            //    .PublishAsync(context => context.Init<TicketContract>(new
-            //    {
-            //        context.Message.BookingId                    ,
-            //        //context.Message.BookingNumber
-            //    })).TransitionTo(ProcessingTicket)
-            // );
-            
+            During(ProcessingPayment,
+                When(OnPaymentCompleted).Then(context =>
+                {
+                    context.Saga.BookingId = context.Message.BookingId;
+                    context.Saga.DateCreated = DateTime.UtcNow;
+                    //context.Saga.BookingNumber = context.Message.BookingNumber;
+                    //context.Saga.Amount = context.Message.Amount;
+                })
+                .PublishAsync(context => context.Init<TicketContract>(new
+                {
+                    context.Message.BookingId,
+                    //context.Message.BookingNumber
+                })).TransitionTo(ProcessingTicket),
+
+                When(OnPaymentFailed).Then(context =>
+                {
+                    context.Saga.DateCreated = DateTime.UtcNow;
+                })
+                .PublishAsync(context => context.Init<PaymentFailedContract>(new
+                {
+                    BookingId = context.Message.BookingId,
+                    Reason = context.Message.Reason
+                }))
+                .TransitionTo(BookingFailed)
+                 .Finalize()
+             );
+
             //During(ProcessingTicket,
             //     When(OnTicketProcessed).Then(context =>
             //     {

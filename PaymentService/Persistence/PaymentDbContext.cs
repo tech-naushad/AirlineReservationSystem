@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PaymentService.Persistence.Entity;
 
 namespace PaymentService.Persistence
 {
@@ -6,6 +7,7 @@ namespace PaymentService.Persistence
     {
         public PaymentDbContext(DbContextOptions<PaymentDbContext> options) : base(options) { }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<PaymentFailure> PaymentFailures { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -15,12 +17,11 @@ namespace PaymentService.Persistence
                 .HasKey(p => p.Id);
 
             modelBuilder.Entity<Payment>()
-                .Property(p => p.Amount)
-                .HasColumnType("decimal(18,2)");
-
-            modelBuilder.Entity<Payment>()
                 .Property(p => p.Status)
                 .HasMaxLength(50);
+
+            modelBuilder.Entity<PaymentFailure>()
+              .HasKey(p => p.Id);
         }
     }
 }

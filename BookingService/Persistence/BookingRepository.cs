@@ -32,7 +32,8 @@ namespace BookingService.Persistence
                 
                 await _publishEndpoint.Publish<IBookingCreated>(new
                 {
-                    BookingId = booking.Id
+                    BookingId = booking.Id,
+                    Amount = booking.Amount,
                 });
                
             }

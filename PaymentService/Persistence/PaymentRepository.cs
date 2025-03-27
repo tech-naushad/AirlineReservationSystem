@@ -1,11 +1,14 @@
 ﻿using EventContracts;
 using MassTransit;
+using PaymentService.Persistence.Entity;
 
 namespace PaymentService.Persistence
 {
     public interface IPaymentRepository
     {
         Task<Payment> ProcessPaymentAsync(Payment payment);
+        Task<PaymentFailure> ProcessFailedPaymentAsync(PaymentFailure paymentFailure);
+         
     }
     public class PaymentRepository : IPaymentRepository
     {
@@ -34,12 +37,18 @@ namespace PaymentService.Persistence
 
                 await _publishEndpoint.Publish<IPaymentFailed>(new
                 {
-                    BookingId = payment.BookingId,
-                    BookingNumber = payment.BookingNumber,
+                    BookingId = payment.BookingId,                  
                     Reason = $"Payment failed, {ex.Message}"
                 });
             }
             return payment;
+        }
+
+        public async Task<PaymentFailure> ProcessFailedPaymentAsync(PaymentFailure paymentFailure)
+        {
+            await _context.PaymentFailures.AddAsync(paymentFailure);
+            await _context.SaveChangesAsync();
+            return paymentFailure;
         }
     }
 }

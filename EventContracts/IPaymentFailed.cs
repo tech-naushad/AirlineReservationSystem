@@ -8,8 +8,7 @@ namespace EventContracts
 {
     public interface IPaymentFailed
     {
-        Guid BookingId { get; init; }
-        //string BookingNumber { get; init; }
+        Guid BookingId { get; init; }    
         string Reason { get; init; }
     }
 }
