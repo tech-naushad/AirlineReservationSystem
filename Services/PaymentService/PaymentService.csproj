@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Contracts\Events\Events.csproj" />
     <ProjectReference Include="..\..\Contracts\Messages\Messages.csproj" />
   </ItemGroup>
 

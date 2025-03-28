@@ -1,4 +1,5 @@
-﻿ 
+﻿
+using Events;
 using MassTransit; 
 using Messages;
 using Microsoft.EntityFrameworkCore;
@@ -40,8 +41,11 @@ namespace PaymentService.Consumers
                     await _context.SaveChangesAsync();
 
                     await transaction.CommitAsync();
-                
 
+                    await _publishEndpoint.Publish<IPaymentCompletedEvent>(new
+                    {
+                        context.Message.BookingId
+                    });
                 }
                 catch (Exception ex)
                 {

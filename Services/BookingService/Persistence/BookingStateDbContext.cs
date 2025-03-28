@@ -3,7 +3,6 @@ using MassTransit;
 using MassTransit.EntityFrameworkCoreIntegration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Reflection.Emit;
 
 namespace BookingService.Persistence
 {
@@ -11,7 +10,6 @@ namespace BookingService.Persistence
     {
         public BookingStateDbContext(DbContextOptions<BookingStateDbContext> options) : base(options)
         {
-
         }
 
         protected override IEnumerable<ISagaClassMap> Configurations

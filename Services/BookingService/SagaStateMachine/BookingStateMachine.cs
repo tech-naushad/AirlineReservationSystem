@@ -2,29 +2,22 @@
 using Events;
 using MassTransit;
 using Messages;
-using System.Reflection;
 
 namespace BookingService.SagaStateMachine
 {
     public class BookingStateMachine : MassTransitStateMachine<BookingState>
     {
-        public State ProcessingPayment{ get; private set; }
-        public State ProcessingSeatReservation { get; private set; }
-        public State BookingConfirmed { get; private set; }
-        public State BookingFailed { get; private set; }
-        //public State BookingCreated { get; set; }
-        //public State BookingFailed { get; set; }
-        //public State ProcessingPayment { get; set; }
-        //public State PaymentFailed { get; set; }
-        //public State ProcessingTicket { get; set; }
-        //public State ProcessingTicketFailed { get; set; }             
-        //public State Completed { get; private set; }
+        public State ProcessingPayment { get; }
+        public State ProcessingSeatReservation { get; }
+        public State ProcessingBookingConfirmation { get; }
+        //public State BookingSucccessful { get; }
+        //public State BookingFailed { get; }                    
+        public State BookingCompleted { get; }
 
-        public Event<BookingRequest> BookingInitiated { get; set; }
-        public Event<IPaymentCompletedEvent> PaymentCompleted  { get; private set; }
-        //public Event<IBookingFailed> OnBookingFailed { get; set; }       
-        //public Event<IPaymentCompleted> OnPaymentCompleted { get; set; }
-        //public Event<IPaymentFailed> OnPaymentFailed { get; set; }    
+        public Event<BookingRequest> BookingInitiated { get; private set; }
+        public Event<IPaymentCompletedEvent> PaymentCompleted { get; private set; }
+        public Event<ISeatReservationCompletedEvent> ReservationCompleted { get; private set; }
+        public Event<IBookingConfirmedEvent> BookingConfirmed { get; private set; }
 
         public BookingStateMachine()
         {
@@ -34,7 +27,8 @@ namespace BookingService.SagaStateMachine
             //Event(() => OnBookingFailed, x => x.CorrelateById(m => m.Message.TransactionId));
             Event(() => PaymentCompleted, x => x.CorrelateById(m => m.Message.BookingId));
             // Event(() => OnPaymentFailed, x => x.CorrelateById(m => m.Message.BookingId));
-
+            Event(() => ReservationCompleted, x => x.CorrelateById(m => m.Message.BookingId));
+            Event(() => BookingConfirmed, x => x.CorrelateById(m => m.Message.BookingId));
 
             Initially
             (
@@ -60,57 +54,33 @@ namespace BookingService.SagaStateMachine
                     BookingId = context.Saga.CorrelationId,
                     Amount = context.Saga.Amount
                 }))
-                .TransitionTo(ProcessingPayment)
-
-            //When(OnBookingFailed).Then(context =>
-            //{                     
-            //    context.Saga.DateCreated = DateTime.UtcNow;
-            //})
-            //.PublishAsync(context => context.Init<BookingFailedContract>(new
-            //{
-            //    context.Message.TransactionId,
-            //    context.Message.BookingRequest,
-            //    context.Message.Reason
-
-            //}))
-            //.TransitionTo(BookingFailed)
-            // .Finalize()
+                .TransitionTo(ProcessingPayment)           
             );
 
             During(ProcessingPayment,
                 When(PaymentCompleted)
-                .PublishAsync(context => context.Init<ReserveSeatContract>(new
+                .PublishAsync(context => context.Init<SeatReservationContract>(new
                 {
                     context.Message.BookingId,
                     context.Saga.FlightNumber
 
-                })).TransitionTo(ProcessingSeatReservation)
-
-                //When(OnPaymentFailed).Then(context =>
-                //{
-                //    //context.Saga.DateCreated = DateTime.UtcNow;
-                //})
-                //.PublishAsync(context => context.Init<PaymentFailedContract>(new
-                //{
-                //    BookingId = context.Message.BookingId,
-                //    Reason = context.Message.Reason
-                //}))
-                //.TransitionTo(BookingFailed)
-                // .Finalize()
+                })).TransitionTo(ProcessingSeatReservation)             
              );
 
-            //During(ProcessingTicket,
-            //     When(OnTicketProcessed).Then(context =>
-            //     {
-            //         context.Saga.BookingId = context.Message.BookingId;
-            //         //context.Saga.BookingDate = DateTime.UtcNow;
-            //     })
-            //     //.PublishAsync(context => context.Init<TicketContract>(new
-            //     //{
-            //     //    context.Message.BookingId
-            //     //}))
-            //     .TransitionTo(ProcessingNotification)
-            //     );
+            During(ProcessingSeatReservation,
+                 When(ReservationCompleted)
+                 .Then(context => Console.WriteLine($"Publishing BookingConfirmedContract for BookingId: {context.Saga.CorrelationId}"))
+                 .PublishAsync(context => context.Init<BookingConfirmedContract>(new
+                 {
+                     BookingId = context.Saga.CorrelationId
+                 }))
+                 .TransitionTo(ProcessingBookingConfirmation)                 
+                );
+            
+            During(ProcessingBookingConfirmation,
+                When(BookingConfirmed)                 
+                .TransitionTo(BookingCompleted)
+               );
 
             SetCompletedWhenFinalized();
         }

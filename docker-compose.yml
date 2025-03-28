@@ -10,4 +10,10 @@ services:
     build:
       context: .
       dockerfile: Services/PaymentService/Dockerfile
+  
+  reservationservice:
+    image: ${DOCKER_REGISTRY-}reservationservice
+    build:
+      context: .
+      dockerfile: Services/ReservationService/Dockerfile
 

@@ -2,6 +2,7 @@ using BookingService.SagaStateMachine;
 using BookingService.Persistence;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using BookingService.Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +28,7 @@ builder.Services.AddMassTransit(x =>
         });
     });
 
-    //x.AddConsumer<BookingCreatedConsumer>();
+    x.AddConsumer<BookingConfirmedConsumer>();
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.Host(new Uri("rabbitmq://host.docker.internal"), host =>
