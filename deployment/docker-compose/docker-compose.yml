@@ -1,5 +1,16 @@
+version: '3.8'
+
 volumes:
   rabbitmq_data:
+    driver: local
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+
+networks:
+  monitoring:
+    driver: bridge
 
 services:
   bookingservice:   
@@ -10,6 +21,11 @@ services:
       dockerfile: Services/BookingService/Dockerfile
     depends_on:
       - rabbitmq
+      # - otel-collector 
+    environment:
+      Otel__Endpoint: http://otel-collector:4317
+    networks:
+      - monitoring
 
   reservationservice:
     image: ${DOCKER_REGISTRY-}reservationservice
@@ -19,6 +35,8 @@ services:
       dockerfile: Services/ReservationService/Dockerfile
     depends_on:
       - rabbitmq
+    networks:
+      - monitoring
 
   paymentservice:
     image: ${DOCKER_REGISTRY-}paymentservice
@@ -28,6 +46,8 @@ services:
       dockerfile: Services/PaymentService/Dockerfile
     depends_on:
      - rabbitmq
+    networks:
+      - monitoring
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -40,4 +60,53 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - monitoring
+  otel-collector:
+    image: otel/opentelemetry-collector:0.95.0
+    container_name: otel-collector
+    command: ["--config=/etc/otel-collector-config.yml"]
+    volumes:
+      - ../config/otel-collector-config.yml:/etc/otel-collector-config.yml
+    ports:
+      - "8888:8888" 
+      - "8889:8889" 
+      - "13133:13133"
+      - "4317:4317"
+    networks:
+      - monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ../config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    restart: unless-stopped
+    networks:
+      - monitoring  
 
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:v1.5.0
+    container_name: node_exporter
+    command: '--path.rootfs=/host'
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    networks:
+      - monitoring

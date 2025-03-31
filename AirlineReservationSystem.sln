@@ -29,6 +29,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cicd", "cicd", "{B537FD6D-1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "infrastructure\Infrastructure\Infrastructure.csproj", "{31561A69-45FF-425D-967C-15015231D941}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{D5746BA7-E7AD-4ED6-82A6-132E2EDE9006}"
+	ProjectSection(SolutionItems) = preProject
+		deployment\monitoring\otel-collector-config.yml = deployment\monitoring\otel-collector-config.yml
+		deployment\monitoring\prometheus.yml = deployment\monitoring\prometheus.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +79,7 @@ Global
 		{776A5B3C-FCE0-4E2C-B75F-EC4548B0A055} = {52A0E601-5876-46D0-8CB7-98477BA192CE}
 		{B537FD6D-1745-458C-A338-1557EAEC530F} = {52A0E601-5876-46D0-8CB7-98477BA192CE}
 		{31561A69-45FF-425D-967C-15015231D941} = {C6DD105E-2288-4855-AB50-702077308041}
+		{D5746BA7-E7AD-4ED6-82A6-132E2EDE9006} = {52A0E601-5876-46D0-8CB7-98477BA192CE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C0CD7207-742B-4CE6-B188-A0219C25F7AC}

@@ -15,6 +15,21 @@
 	  <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.1" />
 	  <PackageReference Include="MassTransit.RabbitMQ" Version="8.4.0" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
+	  <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+	  <PackageReference Include="OpenTelemetry" Version="1.11.2" />
+	  <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.11.2" />
+	  <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.8.0-rc.1" />
+	  <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.11.2" />
+	  <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.11.1" />
+	  <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.11.1" />
+	  <PackageReference Include="OpenTelemetry.Instrumentation.Process" Version="1.11.0-beta.2" />
+	  <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.11.1" />
+	  <PackageReference Include="OpenTelemetry.Instrumentation.SqlClient" Version="1.11.0-beta.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Logging\" />
+    <Folder Include="Database\" />
   </ItemGroup>
 
 </Project>
