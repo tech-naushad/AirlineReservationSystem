@@ -1,0 +1,43 @@
+volumes:
+  rabbitmq_data:
+
+services:
+  bookingservice:   
+    image: ${DOCKER_REGISTRY-}bookingservice
+    container_name: bookingService
+    build:
+      context: ../../src
+      dockerfile: Services/BookingService/Dockerfile
+    depends_on:
+      - rabbitmq
+
+  reservationservice:
+    image: ${DOCKER_REGISTRY-}reservationservice
+    container_name: reservationService
+    build:
+      context: ../../src
+      dockerfile: Services/ReservationService/Dockerfile
+    depends_on:
+      - rabbitmq
+
+  paymentservice:
+    image: ${DOCKER_REGISTRY-}paymentservice
+    container_name: paymentService
+    build:
+      context: ../../src
+      dockerfile: Services/PaymentService/Dockerfile
+    depends_on:
+     - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
