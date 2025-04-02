@@ -33,6 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{D5746B
 	ProjectSection(SolutionItems) = preProject
 		deployment\monitoring\otel-collector-config.yml = deployment\monitoring\otel-collector-config.yml
 		deployment\monitoring\prometheus.yml = deployment\monitoring\prometheus.yml
+		deployment\config\thanos-azure-config.yml = deployment\config\thanos-azure-config.yml
 	EndProjectSection
 EndProject
 Global

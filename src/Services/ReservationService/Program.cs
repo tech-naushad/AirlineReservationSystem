@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SeatReservationService.Consumers;
 using SeatReservationService.Persistence;
 using Infrastructure.MassTransit;
+using Infrastructure.Monitoring;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,9 @@ builder.Services.ConfigureMassTransit(builder.Configuration,
     typeof(SeatReservationConsumer)
 //typeof(PaymentFailedConsumer) // Add more consumers here
 );
+
+builder.Services.AddOpenTelemetryMetrics(builder.Configuration);
+builder.Services.AddOpenTelemetryTracing(builder.Configuration, "ReservationService");
 
 var app = builder.Build();
 

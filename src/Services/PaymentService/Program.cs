@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PaymentService.Consumers;
 using PaymentService.Persistence;
 using Infrastructure.MassTransit;
+using Infrastructure.Monitoring;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,10 @@ builder.Services.ConfigureMassTransit(builder.Configuration,
     typeof(PaymentConsumer)
 //typeof(PaymentFailedConsumer) // Add more consumers here
 );
+
+//builder.Services.AddOpenTelemetryMetrics(builder.Configuration);
+builder.Services.AddOpenTelemetryMetrics(builder.Configuration);
+builder.Services.AddOpenTelemetryTracing(builder.Configuration, "PaymentService");
 
 var app = builder.Build();
 

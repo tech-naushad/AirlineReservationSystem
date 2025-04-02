@@ -24,6 +24,7 @@ builder.Services.ConfigureMassTransit<BookingStateMachine, BookingState, Booking
 );
 
 builder.Services.AddOpenTelemetryMetrics(builder.Configuration);
+builder.Services.AddOpenTelemetryTracing(builder.Configuration, "BookingService");
 
 var app = builder.Build();
 
