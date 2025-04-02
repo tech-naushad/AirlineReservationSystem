@@ -2,7 +2,7 @@ using BookingService.Consumers;
 using BookingService.Persistence;
 using BookingService.SagaStateMachine;
 using Infrastructure.MassTransit;
-using Infrastructure.Monitoring;
+using Infrastructure.Observability;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 

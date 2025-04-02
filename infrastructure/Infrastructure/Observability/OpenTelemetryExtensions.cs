@@ -4,7 +4,7 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 
-namespace Infrastructure.Monitoring
+namespace Infrastructure.Observability
 {
     public static class OpenTelemetryExtensions
     {

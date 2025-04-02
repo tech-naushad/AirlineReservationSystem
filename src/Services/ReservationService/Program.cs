@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SeatReservationService.Consumers;
 using SeatReservationService.Persistence;
 using Infrastructure.MassTransit;
-using Infrastructure.Monitoring;
+using Infrastructure.Observability;
 
 var builder = WebApplication.CreateBuilder(args);
 
