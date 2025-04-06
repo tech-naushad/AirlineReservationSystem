@@ -36,6 +36,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{D5746B
 		deployment\config\thanos-azure-config.yml = deployment\config\thanos-azure-config.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rabbitmq", "rabbitmq", "{1EDC3A64-617A-4E1E-BDDD-FA95042EAA42}"
+	ProjectSection(SolutionItems) = preProject
+		deployment\k8s\rabbitmq\deployment.yaml = deployment\k8s\rabbitmq\deployment.yaml
+		deployment\k8s\rabbitmq\pvc.yaml = deployment\k8s\rabbitmq\pvc.yaml
+		deployment\k8s\rabbitmq\service.yaml = deployment\k8s\rabbitmq\service.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "booking-service", "booking-service", "{C8AD4ED1-3A5E-4B54-8C7A-5755A89A2588}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ms-sql", "ms-sql", "{B6A67F9B-24F5-4D8E-9E7F-16C305011A06}"
+	ProjectSection(SolutionItems) = preProject
+		deployment\k8s\ms-sql\configmap.yaml = deployment\k8s\ms-sql\configmap.yaml
+		deployment\k8s\ms-sql\deployment.yaml = deployment\k8s\ms-sql\deployment.yaml
+		deployment\k8s\ms-sql\pvc.yaml = deployment\k8s\ms-sql\pvc.yaml
+		deployment\k8s\ms-sql\secret.yaml = deployment\k8s\ms-sql\secret.yaml
+		deployment\k8s\ms-sql\service.yaml = deployment\k8s\ms-sql\service.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +99,9 @@ Global
 		{B537FD6D-1745-458C-A338-1557EAEC530F} = {52A0E601-5876-46D0-8CB7-98477BA192CE}
 		{31561A69-45FF-425D-967C-15015231D941} = {C6DD105E-2288-4855-AB50-702077308041}
 		{D5746BA7-E7AD-4ED6-82A6-132E2EDE9006} = {52A0E601-5876-46D0-8CB7-98477BA192CE}
+		{1EDC3A64-617A-4E1E-BDDD-FA95042EAA42} = {776A5B3C-FCE0-4E2C-B75F-EC4548B0A055}
+		{C8AD4ED1-3A5E-4B54-8C7A-5755A89A2588} = {776A5B3C-FCE0-4E2C-B75F-EC4548B0A055}
+		{B6A67F9B-24F5-4D8E-9E7F-16C305011A06} = {776A5B3C-FCE0-4E2C-B75F-EC4548B0A055}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C0CD7207-742B-4CE6-B188-A0219C25F7AC}
