@@ -33,7 +33,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{D5746B
 	ProjectSection(SolutionItems) = preProject
 		deployment\monitoring\otel-collector-config.yml = deployment\monitoring\otel-collector-config.yml
 		deployment\monitoring\prometheus.yml = deployment\monitoring\prometheus.yml
-		deployment\config\thanos-azure-config.yml = deployment\config\thanos-azure-config.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rabbitmq", "rabbitmq", "{1EDC3A64-617A-4E1E-BDDD-FA95042EAA42}"
