@@ -24,11 +24,17 @@ spec:
             cpu: "1"
         ports:
         - containerPort: 1433
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mssql-secret
+              key: SA_PASSWORD
         envFrom:
         - configMapRef:
             name: mssql-config
-        - secretRef:
-            name: mssql-secret
         volumeMounts:
         - name: mssql-storage
           mountPath: /var/opt/mssql
