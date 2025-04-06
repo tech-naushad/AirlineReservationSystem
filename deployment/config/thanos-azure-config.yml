@@ -1,7 +1,7 @@
 type: AZURE
 config:
   storage_account: "prometheusdatap"
-  storage_account_key: "CgWDcDVHpZtnev4EG0qYXuWVO0Y4Lx59+Wh4hIUQXz9T2EqzU6NX2NtMTEmeMdXAZGDNet93XHjY+AStus6epQ=="
+  #storage_account_key: "CgWDcDVHpZtnev4EG0qYXuWVO0Y4Lx59+Wh4hIUQXz9T2EqzU6NX2NtMTEmeMdXAZGDNet93XHjY+AStus6epQ=="
   container: "prometheus-container"
   endpoint: "prometheusdatap.blob.core.windows.net"
   max_retries: 5
