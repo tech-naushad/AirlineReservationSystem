@@ -13,45 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{171A6E5A-263
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "src\SharedKernel\SharedKernel.csproj", "{EC1BD10C-FF5A-4EF1-B9D4-93DC3CF6A919}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deployment", "deployment", "{52A0E601-5876-46D0-8CB7-98477BA192CE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6542E5B8-9DD5-4940-BFFF-3510CDBD654A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{C6DD105E-2288-4855-AB50-702077308041}"
-EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "deployment\docker-compose\docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService", "src\Services\PaymentService\PaymentService.csproj", "{918B406B-EB45-3F01-DA4E-6423DB2176AA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{776A5B3C-FCE0-4E2C-B75F-EC4548B0A055}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cicd", "cicd", "{B537FD6D-1745-458C-A338-1557EAEC530F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "infrastructure\Infrastructure\Infrastructure.csproj", "{31561A69-45FF-425D-967C-15015231D941}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{D5746BA7-E7AD-4ED6-82A6-132E2EDE9006}"
-	ProjectSection(SolutionItems) = preProject
-		deployment\monitoring\otel-collector-config.yml = deployment\monitoring\otel-collector-config.yml
-		deployment\monitoring\prometheus.yml = deployment\monitoring\prometheus.yml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "rabbitmq", "rabbitmq", "{1EDC3A64-617A-4E1E-BDDD-FA95042EAA42}"
-	ProjectSection(SolutionItems) = preProject
-		deployment\k8s\rabbitmq\deployment.yaml = deployment\k8s\rabbitmq\deployment.yaml
-		deployment\k8s\rabbitmq\pvc.yaml = deployment\k8s\rabbitmq\pvc.yaml
-		deployment\k8s\rabbitmq\service.yaml = deployment\k8s\rabbitmq\service.yaml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "booking-service", "booking-service", "{C8AD4ED1-3A5E-4B54-8C7A-5755A89A2588}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ms-sql", "ms-sql", "{B6A67F9B-24F5-4D8E-9E7F-16C305011A06}"
-	ProjectSection(SolutionItems) = preProject
-		deployment\k8s\ms-sql\configmap.yaml = deployment\k8s\ms-sql\configmap.yaml
-		deployment\k8s\ms-sql\deployment.yaml = deployment\k8s\ms-sql\deployment.yaml
-		deployment\k8s\ms-sql\pvc.yaml = deployment\k8s\ms-sql\pvc.yaml
-		deployment\k8s\ms-sql\secret.yaml = deployment\k8s\ms-sql\secret.yaml
-		deployment\k8s\ms-sql\service.yaml = deployment\k8s\ms-sql\service.yaml
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{3D745DFE-AF9A-E111-755D-FD3FFF280728}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,18 +37,14 @@ Global
 		{EC1BD10C-FF5A-4EF1-B9D4-93DC3CF6A919}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC1BD10C-FF5A-4EF1-B9D4-93DC3CF6A919}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC1BD10C-FF5A-4EF1-B9D4-93DC3CF6A919}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{918B406B-EB45-3F01-DA4E-6423DB2176AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{918B406B-EB45-3F01-DA4E-6423DB2176AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{918B406B-EB45-3F01-DA4E-6423DB2176AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{918B406B-EB45-3F01-DA4E-6423DB2176AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{31561A69-45FF-425D-967C-15015231D941}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31561A69-45FF-425D-967C-15015231D941}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31561A69-45FF-425D-967C-15015231D941}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31561A69-45FF-425D-967C-15015231D941}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D745DFE-AF9A-E111-755D-FD3FFF280728}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D745DFE-AF9A-E111-755D-FD3FFF280728}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D745DFE-AF9A-E111-755D-FD3FFF280728}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D745DFE-AF9A-E111-755D-FD3FFF280728}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,15 +54,8 @@ Global
 		{E8D9916E-CDAA-4B8A-8E76-E5260501B683} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{FAE20A61-6094-43DC-88E1-24DE1C568611} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{EC1BD10C-FF5A-4EF1-B9D4-93DC3CF6A919} = {171A6E5A-2635-4B4D-98D4-5A49C82DC10B}
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A} = {52A0E601-5876-46D0-8CB7-98477BA192CE}
 		{918B406B-EB45-3F01-DA4E-6423DB2176AA} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-		{776A5B3C-FCE0-4E2C-B75F-EC4548B0A055} = {52A0E601-5876-46D0-8CB7-98477BA192CE}
-		{B537FD6D-1745-458C-A338-1557EAEC530F} = {52A0E601-5876-46D0-8CB7-98477BA192CE}
-		{31561A69-45FF-425D-967C-15015231D941} = {C6DD105E-2288-4855-AB50-702077308041}
-		{D5746BA7-E7AD-4ED6-82A6-132E2EDE9006} = {52A0E601-5876-46D0-8CB7-98477BA192CE}
-		{1EDC3A64-617A-4E1E-BDDD-FA95042EAA42} = {776A5B3C-FCE0-4E2C-B75F-EC4548B0A055}
-		{C8AD4ED1-3A5E-4B54-8C7A-5755A89A2588} = {776A5B3C-FCE0-4E2C-B75F-EC4548B0A055}
-		{B6A67F9B-24F5-4D8E-9E7F-16C305011A06} = {776A5B3C-FCE0-4E2C-B75F-EC4548B0A055}
+		{3D745DFE-AF9A-E111-755D-FD3FFF280728} = {171A6E5A-2635-4B4D-98D4-5A49C82DC10B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C0CD7207-742B-4CE6-B188-A0219C25F7AC}
